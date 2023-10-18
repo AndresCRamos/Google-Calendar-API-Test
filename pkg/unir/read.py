@@ -1,6 +1,6 @@
 from pathlib import Path
 from json import loads
-from datetime import datetime
+from datetime import datetime, timedelta
 
 __DATA_PATH = Path("data.json").absolute()
 
@@ -33,8 +33,10 @@ def __format_events(events:list[dict]):
     formatted_events = []
     for event in events:
         summary = event.get("Tema") if event.get("Tema") != "" else event.get("Nombre_tema")
-        init_date = datetime.strptime(event.get("Fecha_inicio"), "%d/%m/%Y").date().strftime("%d-%m-%Y")
-        end_date = datetime.strptime(event.get("Fecha_inicio"), "%d/%m/%Y").date().strftime("%d-%m-%Y")
+        init_date = datetime.strptime(event.get("Fecha_inicio"), "%d/%m/%Y").date().strftime("%Y-%m-%d")
+        end_date = datetime.strptime(event.get("Fecha_fin"), "%d/%m/%Y").date()
+        end_date = end_date + timedelta(days=1)
+        end_date = end_date.strftime("%Y-%m-%d")
         formatted_events.append({
             "summary":  summary,
             "init_date": init_date,
