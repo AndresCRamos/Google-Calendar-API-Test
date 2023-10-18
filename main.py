@@ -5,8 +5,8 @@ from pkg.unir.read import read_events
 def main():
     events = read_events()
     calendar = create_calendar()
-    event_test = events[0]
-    create_event(calendar=calendar, **event_test)
+    for event in events:
+        create_event(calendar=calendar, **event)
 
 if __name__ == '__main__':
     main()
