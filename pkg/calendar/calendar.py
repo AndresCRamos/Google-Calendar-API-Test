@@ -1,14 +1,14 @@
 # pylint: disable=E1101
 
 from googleapiclient.errors import HttpError
-from pkg.constants import CALENDAR_NAME
 from pkg.calendar.service import CalendarService
+from os import getenv
 
 def create_calendar():
     cal_service = CalendarService().get_service()
     try:
         calendar_test = {
-            "summary": CALENDAR_NAME
+            "summary": getenv("CALENDAR_NAME")
         }
         new_calendar_response = cal_service.calendars().insert(
             body=calendar_test).execute()
